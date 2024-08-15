@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <type name="Magento\Catalog\Model\Indexer\Product\Flat\Action\Full">
+        <plugin name="concurrent_store_indexer"
+                type="Betagento\ConcurrentIndexer\Plugin\Indexer\Flat\AroundFullPlugin" sortOrder="1"/>
+    </type>
+
+    <type name="Magento\Indexer\Model\ProcessManager">
+        <plugin name="concurrent_store_indexer"
+                type="Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager" sortOrder="1"/>
+    </type>
+
+    <type name="Betagento\ConcurrentIndexer\Model\Config">
+        <arguments>
+            <argument name="threadsCount" xsi:type="init_parameter">Magento\Indexer\Model\ProcessManager::THREADS_COUNT</argument>
+            <argument name="isEnabled" xsi:type="init_parameter">Betagento\ConcurrentIndexer\Model\Config::IS_ENABLED</argument>
+        </arguments>
+    </type>
+
+    
+</config>
