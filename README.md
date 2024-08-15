@@ -1,4 +1,4 @@
-# magento2 modudel Concurrent Indexer
+# Magento Concurrent/Multithreading Indexer
 
 ## Purposes:
 Magento 2 already supports multithreading for some indexer processes, but not all of them—specifically, the Product Flat Indexer. The purpose of this module is to:
