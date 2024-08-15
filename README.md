@@ -16,7 +16,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
 'BETA_CONCURRENT_INDEXER_THREADS_ENABLE' => 1
 ```
 
-## How multithreading Indexer is implemented by Magento2 Core
+## How is multithreading in the Indexer implemented by Magento 2 Core?
 
 #### CLASS \Magento\Catalog\Model\Indexer\Category\Product\Action
 ```
@@ -57,4 +57,14 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
             $this->simpleThreadExecute($userFunctions);
         }
     }
+```
+
+## How is multithreading in the Indexer implemented by my module?
+CLASS \Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager
+```
+if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->config->isCanBeParalleled() && !$this->config->isSetupMode() && PHP_SAPI == 'cli') {
+
+    Spatie\Fork\Fork::new()->concurrent($this->config->getThreadCount())->run(...$userFunctions);
+            return;
+}
 ```
