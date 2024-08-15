@@ -70,6 +70,7 @@ if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->
 ```
 
 @trunglv
+Skype : beta.trunglv@outlook.com - email : luuvantrung@gmail.com
 
 <pre>vendor/bin/phpstan analyse app/code/Betagento/ConcurrentIndexer/ --level 9
  5/5 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
