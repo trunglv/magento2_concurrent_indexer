@@ -1,15 +1,15 @@
 # Magento Concurrent/Multithreading Indexer
 
-# Purposes:
+## Purposes:
 Magento 2 already supports multithreading for some indexer processes, but not all of them—specifically, the Product Flat Indexer. The purpose of this module is to:
 #### 1. Enable the Product Flat Indexer to run concurrently.
 #### 2. Replace the default multithreading functionality in Magento Core with the spatie/fork module. Although I haven't benchmarked it yet, I have a feeling that spatie/fork is faster and seems to be more modern and professional in terms of coding.
 
-# Installation
+## Installation
 ```
 composer require trunglv/magento2-concurrent_indexer
 ```
-# Config
+## Config
 In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and a new one, BETA_CONCURRENT_INDEXER_THREADS_ENABLE.
 
 ### !!!!If you want to use "spatie/fork" , you should enable BETA_CONCURRENT_INDEXER_THREADS_ENABLE
@@ -20,7 +20,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
 'BETA_CONCURRENT_INDEXER_THREADS_ENABLE' => 1
 ```
 
-# How is multithreading in the Indexer implemented by Magento 2 Core?
+## How is multithreading in the Indexer implemented by Magento 2 Core?
 
 ##### CLASS \Magento\Catalog\Model\Indexer\Category\Product\Action
 ```
@@ -63,7 +63,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
     }
 ```
 
-# How is multithreading in the Indexer implemented by my module?
+## How is multithreading in the Indexer implemented by my module?
 ##### CLASS \Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager
 ```
 if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->config->isCanBeParalleled() && !$this->config->isSetupMode() && PHP_SAPI == 'cli') {
