@@ -64,7 +64,7 @@ CLASS \Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager
 ```
 if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->config->isCanBeParalleled() && !$this->config->isSetupMode() && PHP_SAPI == 'cli') {
 
-    Spatie\Fork\Fork::new()->concurrent($this->config->getThreadCount())->run(...$userFunctions);
+    \Spatie\Fork\Fork::new()->concurrent($this->config->getThreadCount())->run(...$userFunctions);
             return;
 }
 ```
