@@ -15,3 +15,46 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
 'MAGE_INDEXER_THREADS_COUNT' => 3,
 'BETA_CONCURRENT_INDEXER_THREADS_ENABLE' => 1
 ```
+
+## How multithreading Indexer is implemented by Magento2 Core
+
+#### CLASS \Magento\Catalog\Model\Indexer\Category\Product\Action
+```
+/**
+     * Run reindexation
+     *
+     * @return void
+     */
+    protected function reindex(): void
+    {
+        $userFunctions = [];
+
+        foreach ($this->storeManager->getStores() as $store) {
+            if ($this->getPathFromCategoryId($store->getRootCategoryId())) {
+                $userFunctions[$store->getId()] = function () use ($store) {
+                    $this->reindexStore($store);
+                };
+            }
+        }
+
+        $this->processManager->execute($userFunctions);
+    }
+```
+
+#### CLASS \Magento\Indexer\Model\ProcessManager
+
+```
+/**
+     * Execute user functions
+     *
+     * @param \Traversable $userFunctions
+     */
+    public function execute($userFunctions)
+    {
+        if ($this->threadsCount > 1 && $this->isCanBeParalleled() && !$this->isSetupMode() && PHP_SAPI == 'cli') {
+            $this->multiThreadsExecute($userFunctions);
+        } else {
+            $this->simpleThreadExecute($userFunctions);
+        }
+    }
+```
