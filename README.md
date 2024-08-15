@@ -68,3 +68,15 @@ if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->
             return;
 }
 ```
+
+@trunglv
+```
+<pre>vendor/bin/phpstan analyse app/code/Betagento/ConcurrentIndexer/ --level 9
+ 5/5 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+
+<span style="background-color:#4E9A06"><font color="#2E3436">                                                                                                                        </font></span>
+<span style="background-color:#4E9A06"><font color="#2E3436"> [OK] No errors                                                                                                         </font></span>
+<span style="background-color:#4E9A06"><font color="#2E3436">                                                                                                                        </font></span>
+</pre>
+```
