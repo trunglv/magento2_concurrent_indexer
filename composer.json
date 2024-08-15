@@ -1,0 +1,37 @@
+{
+    "name": "trunglv/magento2-concurrent_indexer",
+    "description": "Magento2 concurrent indexer with spatie/fork",
+    "type": "magento2-module",
+    "require": {
+        "php": ">=8.0",
+        "spatie/fork" : "*"
+    },
+    "version": "0.0.1",
+    "autoload": {
+        "files": [
+            "Developer/registration.php"
+        ],
+        "psr-4": {
+            "Betagento\\": ""
+        }
+    },
+    "autoload-dev": {
+        "files": [
+            "ConcurrentIndexer/registration.php"
+        ],
+        "psr-4": {
+            "Betagento\\": ""
+        }
+    },
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Luu Van Trung - Betagento",
+            "email": "luuvantrung@gmail.com",
+            "role": "person"
+        }
+    ]
+}
