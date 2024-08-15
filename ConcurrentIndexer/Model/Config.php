@@ -3,7 +3,7 @@ namespace Betagento\ConcurrentIndexer\Model;
 
 class Config
 {
-    const IS_ENABLED = 'BETA_CONCURRENT_INDEXER_THREADS_ENABLED';
+    const IS_ENABLED = 'BETA_CONCURRENT_INDEXER_THREADS_ENABLE';
 
     public function __construct(
         protected \Magento\Framework\Registry $registry,
