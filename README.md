@@ -60,7 +60,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
 ```
 
 ## How is multithreading in the Indexer implemented by my module?
-CLASS \Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager
+##### CLASS \Betagento\ConcurrentIndexer\Plugin\Indexer\AroundProcessManager
 ```
 if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->config->isCanBeParalleled() && !$this->config->isSetupMode() && PHP_SAPI == 'cli') {
 
