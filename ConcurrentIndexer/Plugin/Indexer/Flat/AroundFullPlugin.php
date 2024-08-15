@@ -4,13 +4,15 @@ namespace Betagento\ConcurrentIndexer\Plugin\Indexer\Flat;
 use Spatie\Fork\Fork;
 use Betagento\ConcurrentIndexer\Model\Indexer\Flat\Action\Full as CustomizedFullAction;
 use Betagento\ConcurrentIndexer\Model\Config;
+use Magento\Indexer\Model\ProcessManager;
 
 class AroundFullPlugin 
 {
     
     public function __construct(
         protected CustomizedFullAction $customizedFullAction,
-        protected Config $config
+        protected Config $config,
+        protected ProcessManager $processManager
     )
     {}
     /**
@@ -22,12 +24,16 @@ class AroundFullPlugin
      */
     public function aroundExecute($subject, $procceed, $ids = null)
     {
+        $processes = $this->customizedFullAction->execute($ids)->getProcesses();
+        
         if ($this->config->isEnabled() && $this->config->getThreadCount() > 1 && $this->config->isCanBeParalleled() && !$this->config->isSetupMode() && PHP_SAPI == 'cli') {
-            $processes = $this->customizedFullAction->execute($ids)->getProcesses();
+
             Fork::new()->concurrent($this->config->getThreadCount())->run(...$processes);
             return $subject;
         }
-        return $procceed($ids);
+    
+        $this->processManager->execute(new \ArrayIterator($processes));
+        return $subject;
         
     }
 }
