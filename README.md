@@ -18,7 +18,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
 
 ## How is multithreading in the Indexer implemented by Magento 2 Core?
 
-#### CLASS \Magento\Catalog\Model\Indexer\Category\Product\Action
+##### CLASS \Magento\Catalog\Model\Indexer\Category\Product\Action
 ```
 /**
      * Run reindexation
@@ -41,7 +41,7 @@ In etc/env.php, we should define MAGE_INDEXER_THREADS_COUNT (Magento2 Core) and 
     }
 ```
 
-#### CLASS \Magento\Indexer\Model\ProcessManager
+##### CLASS \Magento\Indexer\Model\ProcessManager
 
 ```
 /**
